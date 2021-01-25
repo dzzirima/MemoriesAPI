@@ -11,6 +11,11 @@ app.use(bodyPaser.json({limit:"300mb",extended:true}))
 app.use(bodyPaser.urlencoded({limit:"300mb",extended:true}))
 app.use(cors())
 
+import postRoutes from './routes/post.js'
+
+
+app.use('/posts',postRoutes)
+
 const PORT = process.env.PORT|| 5000;
 const CONNECTION_URL = "mongodb://localhost:27017/memories"; // for local dev
 
