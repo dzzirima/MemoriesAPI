@@ -1,7 +1,8 @@
 import { response } from 'express';
 import PostMessage from '../models/postMessages.js'
-import  PostMessages from '../models/postMessages.js'
+
 // this is where all the logic of the routes is going to go
+// more on status code :https://www.restapitutorial.com/httpsstatuscodes.html
 
 export const getPosts = async (req,res) =>{
 
@@ -16,6 +17,15 @@ export const getPosts = async (req,res) =>{
 }
 
 
-export const createPosts = (req,res) =>{
-    res.send("post creation")
+export const createPosts = async (req,res) =>{
+    const post = req.body
+    const newPost = new PostMessage(post)  // creation of new post based on the model
+    try {
+        
+        await newPost.save()
+        res.status(201).json(newPost)
+    } catch (error) {
+        res.status(409).json({message:error.message})
+        
+    }
 }
