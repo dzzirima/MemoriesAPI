@@ -1,5 +1,6 @@
-import { response } from 'express';
+import mongoose from 'mongoose'
 import PostMessage from '../models/postMessages.js'
+
 
 // this is where all the logic of the routes is going to go
 // more on status code :https://www.restapitutorial.com/httpsstatuscodes.html
@@ -28,4 +29,43 @@ export const createPosts = async (req,res) =>{
         res.status(409).json({message:error.message})
         
     }
+}
+
+export const updatePost = async (req,res) =>{
+    // get the id from the params
+    // when destructuring objects we can actually rename the 
+    const {id:_id } = req.params
+    const post = req.body
+
+    // check if the id is valid
+    if(!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send('No post with that id:')
+
+    // create a new object and send it again
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id,{...post,_id},{new :true}) // new is for us to get the updated document version
+    
+    res.json(updatePost)
+
+}
+
+
+export const  deletePost = async (req,res) =>{
+    const {id:id } = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id:')
+
+    await PostMessage.findByIdAndRemove(id)
+    res.json({message:'Post deleted  successfully'})
+
+
+}
+
+export const likePost = async (req,res) =>{
+    const {id:id } = req.params
+    if(!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send('No post with that id:')
+
+    const post = await PostMessage.findById(id);
+    const updatedPost = await PostMessage.findByIdAndUpdate(id,{ likeCount : post.likeCount + 1},{new :true})
+
+    res.json(updatedPost)
+
 }
