@@ -17,6 +17,9 @@ import postRoutes from './routes/post.js'
 
 
 app.use('/posts',postRoutes)
+app.get('/',(req,res) =>{
+    res.send("Hello to memories Api");
+})
 
 const PORT = process.env.PORT;
 // const CONNECTION_URL = "mongodb://localhost:27017/memories"; // for local dev
