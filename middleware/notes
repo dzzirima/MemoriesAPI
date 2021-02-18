@@ -1,0 +1,11 @@
+1.so basically these function promote authenticity a way of identifiying the user
+1.2 any action that needs to happen before something happen
+2.next simply means do something an move to the other thing
+2.1 the middleware work hand in hand with the routes
+
+
+useCases of steps that happen when using the middleware
+wants to like a post
+//click the like btn =>auth middleware (next) =>liike Controller
+the auth is going to call next only if it does not throw an error
+
