@@ -14,9 +14,12 @@ app.use(bodyPaser.urlencoded({limit:"300mb",extended:true}))
 app.use(cors())
 
 import postRoutes from './routes/post.js'
+import userRoutes from './routes/user.js'
 
 
 app.use('/posts',postRoutes)
+app.use('users',userRoutes)
+
 app.get('/',(req,res) =>{
     res.send("Hello to memories Api");
 })
