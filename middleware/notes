@@ -8,4 +8,6 @@ useCases of steps that happen when using the middleware
 wants to like a post
 //click the like btn =>auth middleware (next) =>liike Controller
 the auth is going to call next only if it does not throw an error
+N.B all the things we set inthe middleware will be presennt in the  next action eg req.userId will 
+be present in the next thing that will be called...
 
